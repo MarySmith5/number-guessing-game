@@ -12,15 +12,20 @@ print("Try to guess my number.")
 num_of_guesses = 0
 
 while True:
-    guess = int(input("Your guess? "))
-    if guess < 1 or guess > 100:
-        print("Invalid. Make a guess between 1 and 100.")
-    else:
-        num_of_guesses += 1
-        if guess > secret_num:
-            print("Your guess is too high -- try again.")
-        elif guess < secret_num:
-            print("Your guess is too low -- try again.")
+    try:
+        guess = int(input("Your guess? "))
+    
+
+        if guess < 1 or guess > 100:
+            print("Guess between 1 and 100.")
         else:
-            print(f"Well done, {name}! You found my number in {num_of_guesses} tries!")
-            break    
+            num_of_guesses += 1
+            if guess > secret_num:
+                print("Your guess is too high -- try again.")
+            elif guess < secret_num:
+                print("Your guess is too low -- try again.")
+            else:
+                print(f"Well done, {name}! You found my number in {num_of_guesses} tries!")
+                break 
+    except ValueError:
+        print("Oops! The was not a number. Try again.")   
