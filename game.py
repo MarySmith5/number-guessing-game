@@ -1,9 +1,9 @@
 """A number-guessing game."""
 #print("I did it!")
 # Put your code here
-import random
+from random import randint
 
-secret_num = random.randint(1,101)
+secret_num = randint(1,101)
 
 name = input("Howdy! What is your name: ").title()
 print(f"{name}, I'm thinking of a number between 1 and 100.")
