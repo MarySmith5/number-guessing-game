@@ -2,6 +2,33 @@
 #print("I did it!")
 # Put your code here
 from random import randint
+def computer_plays():
+    while True:
+        try:
+            player_num = int(input("Enter your secret number between 1 and 100: "))
+            if player_num >= 1 and player_num <=100:
+                break
+            
+        except ValueError:
+            print("Oops. That was not a number.")
+    
+
+    guess_range_start = 1
+    guess_range_end = 100
+    while True:
+        go = input("Press 'Enter' to see my guess.")
+        
+        if not go:
+            computer_guess = randint(guess_range_start, guess_range_end)
+            print(computer_guess)
+            if computer_guess > player_num:
+                guess_range_end = computer_guess - 1
+            elif computer_guess < player_num:
+                guess_range_start = computer_guess + 1
+            else:
+                if computer_guess == player_num:
+                    print("I won! That was fun!")
+                    break
     
 
 def play(rand_int, player, range_begin, range_end):
@@ -39,29 +66,34 @@ def play(rand_int, player, range_begin, range_end):
 def main_play():
 
     name = input("Howdy! What is your name: ").title()
-    
     guesses_list = []
-
     while True:
-        while True:
-            try:
-                start = int(input("Choose your number range. Enter the start of range: "))
-                end = int(input("Enter the end of range: "))
-                break
-            except ValueError:
-                print("Oops. That was not a number. Please enter a number.")
-   
-        print(f"{name}, I'm thinking of a number between {start} and {end}.")
-        print("Try to guess my number in 8 or fewer guesses.")
+        print("Option A: Guess my number")
+        print("Option B: I guess your number") 
+        who_plays = input("Enter A or B: ").upper().strip()
+        if who_plays == 'B':
+            computer_plays()
 
-        secret_num = randint(start, end)
-        outcome = play(secret_num, name, start, end)
-        if outcome != 'fail':
-            guesses_list.append(outcome)
+        else:
+            while True:
+                try:
+                    start = int(input("Choose your number range. Enter the start of range: "))
+                    end = int(input("Enter the end of range: "))
+                    break
+                except ValueError:
+                    print("Oops. That was not a number. Please enter a number.")
+    
+            print(f"{name}, I'm thinking of a number between {start} and {end}.")
+            print("Try to guess my number in 8 or fewer guesses.")
 
-        if guesses_list != []:
+            secret_num = randint(start, end)
+            outcome = play(secret_num, name, start, end)
+            if outcome != 'fail':
+                guesses_list.append(outcome)
 
-            print(f"Your best game so far was {min(guesses_list)} guesses.")
+            if guesses_list != []:
+
+                print(f"Your best game so far was {min(guesses_list)} guesses.")
         play_again = input("Would you like to play again? Y or N: ").upper()
         if 'N' in play_again:
             print("Goodbye.")
